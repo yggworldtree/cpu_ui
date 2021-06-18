@@ -6,6 +6,7 @@ import (
 	"github.com/yggworldtree/cpu_ui/comm"
 	"github.com/yggworldtree/go-core/bean"
 	"sync"
+	"time"
 )
 
 type Manager struct {
@@ -45,5 +46,6 @@ func (c *Manager) StartReg() {
 			break
 		}
 		hbtp.Debugf("SubTopic %s err:%v", comm.MsgPthCpuMem.String(), err)
+		time.Sleep(time.Second)
 	}
 }
