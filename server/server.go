@@ -31,7 +31,7 @@ func Run() {
 func runWeb() {
 	Web.GET("/cpu-mem", CpuMem)
 	Web.GET("/cpu-infos", CpuInfos)
-	Web.GET("/cpu-procs", CpuProcs)
+	Web.GET("/procs", procs)
 	err := Web.Run(":8080")
 	if err != nil {
 		hbtp.Debugf("gin run err:%v", err)

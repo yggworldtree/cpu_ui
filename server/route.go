@@ -35,7 +35,7 @@ func CpuInfos(c *gin.Context) {
 	hbtp.Debugf("req CpuInfos times:%.4fs", time.Since(tms).Seconds())
 	c.Data(200, "application/json", req.ResBodyBytes())
 }
-func CpuProcs(c *gin.Context) {
+func procs(c *gin.Context) {
 	Mgr.blk.RLock()
 	pth := Mgr.cpuDev
 	Mgr.blk.RUnlock()
