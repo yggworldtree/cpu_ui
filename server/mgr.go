@@ -13,8 +13,9 @@ type Manager struct {
 	cncl   context.CancelFunc
 	reging bool
 
-	blk sync.RWMutex
-	box comm.MsgBox
+	blk    sync.RWMutex
+	box    comm.MsgBox
+	cpuDev *bean.CliGroupPath
 }
 
 func NewManager() *Manager {

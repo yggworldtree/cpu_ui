@@ -20,6 +20,7 @@ func (c *Manager) OnMessage(egn *ywtree.Engine, msg *ywtree.MessageTopic) *messa
 	switch pths {
 	case comm.MsgPthCpuMem.String():
 		c.blk.Lock()
+		c.cpuDev = msg.Sender
 		err := json.Unmarshal(msg.Body, &c.box)
 		c.blk.Unlock()
 		if err != nil {
