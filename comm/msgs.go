@@ -11,8 +11,9 @@ var (
 )
 
 type MsgCpuInfo struct {
-	Percents []float64 `json:"percents"`
-	Average  float64   `json:"average"`
+	Percents   []float64 `json:"percents"`
+	Average    float64   `json:"average"`
+	ProcessLen int       `json:"processLen"`
 }
 type MsgMemInfo struct {
 	Total       uint64  `json:"total"`

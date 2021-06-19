@@ -2,11 +2,12 @@ package server
 
 import (
 	"context"
+	"sync"
+	"time"
+
 	hbtp "github.com/mgr9525/HyperByte-Transfer-Protocol"
 	"github.com/yggworldtree/cpu_ui/comm"
 	"github.com/yggworldtree/go-core/bean"
-	"sync"
-	"time"
 )
 
 type Manager struct {
@@ -25,7 +26,7 @@ func NewManager() *Manager {
 	return c
 }
 
-func (c *Manager) StartReg() {
+func (c *Manager) startReg() {
 	defer func() {
 		if err := recover(); err != nil {
 			hbtp.Debugf("Manager StartReg recover:%v", err)
