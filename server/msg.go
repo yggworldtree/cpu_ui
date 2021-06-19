@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+
 	hbtp "github.com/mgr9525/HyperByte-Transfer-Protocol"
 	"github.com/yggworldtree/cpu_ui/comm"
 	"github.com/yggworldtree/go-core/messages"
@@ -9,7 +10,7 @@ import (
 )
 
 func (c *Manager) OnConnect(egn *ywtree.Engine) {
-	go Mgr.StartReg()
+	go Mgr.startReg()
 }
 func (c *Manager) OnDisconnect(egn *ywtree.Engine) {
 

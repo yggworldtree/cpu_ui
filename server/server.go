@@ -32,7 +32,7 @@ func Run() {
 func runWeb() {
 	Web.GET("/cpu-mem", CpuMem)
 	Web.GET("/cpu-infos", CpuInfos)
-	Web.GET("/cpu-procs", CpuProcs)
+	Web.GET("/procs", procs)
 	Web.LoadHTMLGlob("view/index.html")
 	Web.Static("/js", "./view/js")
 	Web.Static("/css", "./view/css")
