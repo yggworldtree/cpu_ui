@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	hbtp "github.com/mgr9525/HyperByte-Transfer-Protocol"
 	"github.com/yggworldtree/go-sdk/ywtree"
+	"net/http"
 )
 
 var (
@@ -32,6 +33,13 @@ func runWeb() {
 	Web.GET("/cpu-mem", CpuMem)
 	Web.GET("/cpu-infos", CpuInfos)
 	Web.GET("/cpu-procs", CpuProcs)
+	Web.LoadHTMLGlob("view/index.html")
+	Web.Static("/js", "./view/js")
+	Web.Static("/css", "./view/css")
+	Web.Static("/img", "./view/img")
+	Web.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", nil)
+	})
 	err := Web.Run(":8080")
 	if err != nil {
 		hbtp.Debugf("gin run err:%v", err)
