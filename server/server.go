@@ -1,10 +1,11 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	hbtp "github.com/mgr9525/HyperByte-Transfer-Protocol"
 	"github.com/yggworldtree/go-sdk/ywtree"
-	"net/http"
 )
 
 var (
@@ -30,9 +31,11 @@ func Run() {
 }
 
 func runWeb() {
-	Web.GET("/cpu-mem", CpuMem)
-	Web.GET("/cpu-infos", CpuInfos)
-	Web.GET("/procs", procs)
+	Web.Any("/cpu-mem", CpuMem)
+	Web.Any("/cpu-infos", CpuInfos)
+	Web.Any("/procs", procs)
+	Web.Any("/warns", warns)
+	Web.Any("/winfos", winfos)
 	Web.LoadHTMLGlob("view/index.html")
 	Web.Static("/js", "./view/js")
 	Web.Static("/css", "./view/css")
