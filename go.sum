@@ -42,6 +42,8 @@ github.com/yggworldtree/go-core v0.0.0-20210621070134-be038d4e6f72 h1:ErqiE64lTj
 github.com/yggworldtree/go-core v0.0.0-20210621070134-be038d4e6f72/go.mod h1:pjX3+CsLRuHTLWPGXGjn7yTOydl+o3O2snRXgS8vJ5A=
 github.com/yggworldtree/go-sdk v0.0.0-20210621070354-81f525cdeb93 h1:DxOfkW382hFm1ruUAWMFO0oBKkESX+KXuhkwy9cWnnc=
 github.com/yggworldtree/go-sdk v0.0.0-20210621070354-81f525cdeb93/go.mod h1:vxsBX24UzQqwwSRdQOTFAw51/XiXoK9ZPfZMOo++hwI=
+github.com/yggworldtree/go-sdk v0.0.0-20210621073455-b0231047e196 h1:3GhAvRyd/iz5ECrlzK1DIOjeMX3CHBBiFfFUuyX7CVU=
+github.com/yggworldtree/go-sdk v0.0.0-20210621073455-b0231047e196/go.mod h1:vxsBX24UzQqwwSRdQOTFAw51/XiXoK9ZPfZMOo++hwI=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9 h1:psW17arqaxU48Z5kZ0CQnkZWQJsqcURM6tKiBApRjXI=
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
