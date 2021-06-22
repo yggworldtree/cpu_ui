@@ -9,9 +9,9 @@
       <div class="digital-flop">
         <dv-digital-flop
           :config="item.number"
-          style="width:100px;height:50px;"
+          style="width: 100px; height: 50px"
         />
-          <div class="unit">{{ item.unit }}</div>
+        <div class="unit">{{ item.unit }}</div>
       </div>
     </div>
 
@@ -20,153 +20,92 @@
 </template>
 
 <script>
+import { queryWarnln, queryWinfoln, queryWinfos } from "@/request/api"; // 导入我们的api接口
 export default {
-  name: 'DigitalFlop',
-  data () {
+  name: "DigitalFlop",
+  data() {
     return {
-      digitalFlopData: []
-    }
+      digitalFlopData: [],
+    };
   },
   methods: {
-    createData () {
-      const { randomExtend } = this
-
-      this.digitalFlopData = [
-        {
-          title: '管养里程',
+    getWinfoln() {
+      queryWinfoln().then((res) => {
+        this.digitalFlopData.push({
+          title: "总报告数",
           number: {
-            number: [randomExtend(20000, 30000)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#4d99fc',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '公里'
-        },
-        {
-          title: '桥梁',
-          number: {
-            number: [randomExtend(20, 30)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#f46827',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '座'
-        },
-        {
-          title: '涵洞隧道',
-          number: {
-            number: [randomExtend(20, 30)],
-            content: '{nt}',
-            textAlign: 'right',
+            number: [parseInt(res.count)],
+            content: "{nt}",
+            textAlign: "center",
             style: {
               fill: '#40faee',
-              fontWeight: 'bold'
-            }
+              fontWeight: "bold",
+            },
           },
-          unit: '个'
-        },
-        {
-          title: '匝道',
-          number: {
-            number: [randomExtend(10, 20)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#4d99fc',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        },
-        {
-          title: '隧道',
-          number: {
-            number: [randomExtend(5, 10)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#f46827',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        },
-        {
-          title: '服务区',
-          number: {
-            number: [randomExtend(5, 10)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#40faee',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        },
-        {
-          title: '收费站',
-          number: {
-            number: [randomExtend(5, 10)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#4d99fc',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        },
-        {
-          title: '超限站',
-          number: {
-            number: [randomExtend(5, 10)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#f46827',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        },
-        {
-          title: '停车区',
-          number: {
-            number: [randomExtend(5, 10)],
-            content: '{nt}',
-            textAlign: 'right',
-            style: {
-              fill: '#40faee',
-              fontWeight: 'bold'
-            }
-          },
-          unit: '个'
-        }
-      ]
+        });
+      });
+      this.getWarnln();
     },
-    randomExtend (minNum, maxNum) {
+    getWarnln() {
+      queryWarnln().then((res) => {
+        this.digitalFlopData.push({
+          title: "总警告数",
+          number: {
+            number: [parseInt(res.count)],
+            content: "{nt}",
+            textAlign: "center",
+            style: {
+              fill: '#4d99fc',
+              fontWeight: "bold",
+            },
+          },
+        });
+        this.digitalFlopData.push({
+          title: "今日警告数",
+          number: {
+            number: [parseInt(res.count_today)],
+            content: "{nt}",
+            textAlign: "center",
+            style: {
+              fill: '#f46827',
+              fontWeight: "bold",
+            },
+          },
+        });
+        this.digitalFlopData.push({
+          title: "昨日警告数",
+          number: {
+            number: [parseInt(res.count_lastday)],
+            content: "{nt}",
+            textAlign: "center",
+            style: {
+              fill: '#f46827',
+              fontWeight: "bold",
+            },
+          },
+        });
+      });
+    },
+    createData() {
+      this.digitalFlopData = [];
+      this.getWinfoln();
+    },
+    randomExtend(minNum, maxNum) {
       if (arguments.length === 1) {
-        return parseInt(Math.random() * minNum + 1, 10)
+        return parseInt(Math.random() * minNum + 1, 10);
       } else {
-        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10)
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
       }
-    }
+    },
   },
-  mounted () {
-    const { createData } = this
+  mounted() {
+    const { createData } = this;
 
-    createData()
+    createData();
 
-    setInterval(createData, 30000)
-  }
-}
+    setInterval(createData, 300000);
+  },
+};
 </script>
 
 <style lang="less">

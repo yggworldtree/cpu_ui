@@ -5,13 +5,13 @@ module.exports = {
         https: false, //协议
         open: true, //启动服务时自动打开浏览器访问
         proxy: {  // 开发环境代理配置
-            '/dev-api': {  // 意思是当请求是以 dev-api 开头的请求，都走代理
+            '/': {  // 意思是当请求是以 dev-api 开头的请求，都走代理
                 // 目标服务器地址，代理访问：http://localhost:8001
                 target: 'http://localhost:8080',
                 changeOrigin: true,   // 开启代理服务器，就会给你代理转发
                 pathRewrite: {
                     // /dev-api/db.json 最终会转发到 http://localhost:8001/db.json
-                    '^/dev-api': '',  // 就是将请求地址中的 /dev-api 前缀替换成空的
+                    '^/': '',  // 就是将请求地址中的 /dev-api 前缀替换成空的
                 }
             }
         }

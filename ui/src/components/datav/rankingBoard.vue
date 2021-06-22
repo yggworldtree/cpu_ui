@@ -1,59 +1,56 @@
 <template>
   <div id="ranking-board">
-    <div class="ranking-board-title">巡查上报记录数量</div>
+    <div class="ranking-board-title">报告</div>
     <dv-scroll-ranking-board :config="config" />
   </div>
 </template>
 
 <script>
+import { queryWinfos } from "@/request/api"; // 导入我们的api接口
 export default {
-  name: 'RankingBoard',
-  data () {
+  name: "RankingBoard",
+  mounted: function () {
+    const { getWinfos } = this;
+    getWinfos();
+  },
+  methods: {
+    getWinfos() {
+      queryWinfos().then((res) => {
+        var datas = [];
+        let i = 0;
+        res.forEach((element) => {
+          if (i > 9) {
+            return;
+          }
+          var elements = {
+            name: this.chooseType(element.type),
+            value: element.warnLen,
+          };
+          datas.push(elements);
+          i++;
+        });
+        this.config = {
+          data: datas,
+          rowNum: 10,
+        };
+      });
+    },
+    chooseType(type) {
+      if (type == "day") {
+        return "日报";
+      }
+      return "报告";
+    },
+  },
+  data() {
     return {
       config: {
-        data: [
-          {
-            name: '日常养护',
-            value: 55
-          },
-          {
-            name: '交通事故',
-            value: 120
-          },
-          {
-            name: '路面',
-            value: 78
-          },
-          {
-            name: '桥通',
-            value: 66
-          },
-          {
-            name: '计日工',
-            value: 80
-          },
-          {
-            name: '路基',
-            value: 45
-          },
-          {
-            name: '交安设施',
-            value: 29
-          },
-          {
-            name: '除雪',
-            value: 29
-          },
-          {
-            name: '绿化',
-            value: 29
-          }
-        ],
-        rowNum: 9
-      }
-    }
-  }
-}
+        data: [],
+        rowNum: 10,
+      },
+    };
+  },
+};
 </script>
 
 <style lang="less">
@@ -63,7 +60,7 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: rgba(6, 30, 93, 0.5);
-  border-top: 2px solid rgba(1, 153, 209, .5);
+  border-top: 2px solid rgba(1, 153, 209, 0.5);
   box-sizing: border-box;
   padding: 0px 30px;
 

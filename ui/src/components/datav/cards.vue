@@ -1,11 +1,8 @@
 <template>
   <div id="cards">
-    <div class="card-item" v-for="(card, i) in cards" :key="card.title">
-      <div class="card-header">
-        <div class="card-header-left">{{ card.title }}</div>
-        <div class="card-header-right">{{ "0" + (i + 1) }}</div>
-      </div>
+    <div class="card-item" v-for="(card) in cards" :key="card.title">
       <dv-charts class="ring-charts" :option="card.ring" />
+
       <!-- <div class="card-footer">
         <div class="card-footer-item">
           <div class="footer-title">累计金额</div>
@@ -39,7 +36,6 @@ export default {
       const { randomExtend } = this;
       cpuMem().then((res) => {
         this.cards = res.cpu.percents.map((e, i) => ({
-          title: "cpu" + (i + i),
           total: {
             number: [randomExtend(9000, 10000)],
             content: "{nt}",
@@ -66,7 +62,7 @@ export default {
                 endAngle: Math.PI * 1.5,
                 arcLineWidth: 13,
                 radius: "80%",
-                data: [{ name: "CPU占用", value: e }],
+                data: [{ value: e }],
                 axisLabel: {
                   show: false,
                 },
@@ -83,7 +79,7 @@ export default {
                 },
                 details: {
                   show: true,
-                  formatter: "CPU占用{value}%",
+                  formatter: "#" + i + "\n占用{value}%",
                   style: {
                     fill: "#1ed3e5",
                     fontSize: 20,
@@ -107,7 +103,7 @@ export default {
   mounted() {
     const { createData } = this;
     createData();
-    setInterval(this.createData, 10000);
+    setInterval(this.createData, process.env.NODE_ENV === 'production'?3000:100000);
   },
 };
 </script>

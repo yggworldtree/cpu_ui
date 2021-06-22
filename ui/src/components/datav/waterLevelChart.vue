@@ -4,6 +4,7 @@
     <div class="chart-container">
       <dv-water-level-pond :config="config" />
     </div>
+    <div class="water-level-chart-title">总内存:{{ this.memoryTotal }}</div>
   </div>
 </template>
 
@@ -17,20 +18,49 @@ export default {
     setInterval(this.createData, 10000);
   },
   methods: {
+    change(limit) {
+      var size = "";
+      if (limit < 0.1 * 1024) {
+        //小于0.1KB，则转化成B
+        size = limit.toFixed(2) + "B";
+      } else if (limit < 0.1 * 1024 * 1024) {
+        //小于0.1MB，则转化成KB
+        size = (limit / 1024).toFixed(2) + "KB";
+      } else if (limit < 0.1 * 1024 * 1024 * 1024) {
+        //小于0.1GB，则转化成MB
+        size = (limit / (1024 * 1024)).toFixed(2) + "MB";
+      } else {
+        //其他转化成GB
+        size = (limit / (1024 * 1024 * 1024)).toFixed(2) + "GB";
+      }
+
+      var sizeStr = size + ""; //转成字符串
+      var index = sizeStr.indexOf("."); //获取小数点处的索引
+      var dou = sizeStr.substr(index + 1, 2); //获取小数点后两位的值
+      if (dou == "00") {
+        //判断后两位是否为00，如果是则删除00
+        return sizeStr.substring(0, index) + sizeStr.substr(index + 3, 2);
+      }
+      return size;
+    },
     createData() {
-      console.log(123)
       cpuMem().then((res) => {
         this.config = {
-          data: [Math.floor( res.virtualMem.used/res.virtualMem.total*100)],
+          data: [
+            Math.floor((res.virtualMem.used / res.virtualMem.total) * 100),
+          ],
+          formatter:"{value}%",
           shape: "round",
           waveHeight: 25,
           waveNum: 2,
         };
+        this.memoryTotal = this.change(17179869184);
       });
     },
   },
   data() {
     return {
+      memoryTotal: "",
       config: {
         data: [45],
         shape: "round",
@@ -46,7 +76,6 @@ export default {
 #water-level-chart {
   width: 20%;
   box-sizing: border-box;
-  margin-left: 20px;
   background-color: rgba(6, 30, 93, 0.5);
   border-top: 2px solid rgba(1, 153, 209, 0.5);
   display: flex;

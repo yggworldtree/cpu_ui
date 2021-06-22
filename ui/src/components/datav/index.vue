@@ -12,10 +12,7 @@
 
           <div class="block-top-bottom-content">
             <div class="block-top-content">
-              <rose-chart />
-
               <water-level-chart />
-
               <scroll-board />
             </div>
 
@@ -31,7 +28,6 @@
 import topHeader from './topHeader'
 import digitalFlop from './digitalFlop'
 import rankingBoard from './rankingBoard'
-import roseChart from './roseChart'
 import waterLevelChart from './waterLevelChart'
 import scrollBoard from './scrollBoard'
 import cards from './cards'
@@ -42,7 +38,6 @@ export default {
     topHeader,
     digitalFlop,
     rankingBoard,
-    roseChart,
     waterLevelChart,
     scrollBoard,
     cards
