@@ -2,6 +2,7 @@ package server
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	hbtp "github.com/mgr9525/HyperByte-Transfer-Protocol"
@@ -17,8 +18,12 @@ var (
 func Run() {
 	hbtp.Debug = true
 	Mgr = NewManager()
+	host := "localhost:7000"
+	if len(os.Args) > 1 {
+		host = os.Args[1]
+	}
 	YwtEgn = ywtree.NewEngine(Mgr, &ywtree.Config{
-		Host: "localhost:7000",
+		Host: host,
 		Org:  "mgr",
 		Name: "cpu-ui",
 	})
