@@ -65,7 +65,7 @@ export default {
           header: ["User", "Pid", "Cpu占用率", "内存占用率", "Time", "command"],
           data: datas,
           index: true,
-          columnWidth: [100, 80, 80, 150, 150, 150, "auto"],
+          columnWidth: [100, 80, 80, 150, 150, 150, 500],
           align: ["center"],
           rowNum: 7,
           headerBGC: "#1981f6",
