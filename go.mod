@@ -8,3 +8,8 @@ require (
 	github.com/yggworldtree/go-core v0.0.0-20210621070134-be038d4e6f72
 	github.com/yggworldtree/go-sdk v0.0.0-20210621073455-b0231047e196
 )
+
+replace (
+	github.com/yggworldtree/go-core => ../go-core
+	github.com/yggworldtree/go-sdk => ../go-sdk
+)
