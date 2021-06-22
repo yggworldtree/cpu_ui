@@ -1,6 +1,8 @@
 package server
 
 import (
+	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -61,24 +63,53 @@ func procs(c *gin.Context) {
 	c.Data(200, "application/json", req.ResBodyBytes())
 }
 
-func warnln(c *gin.Context) {
-	req, err := YwtEgn.HbtpGrpcRequest(bean.NewCliGroupPath("mgr", "cpu-report"), 1, "GetWarnLen")
+func getWarnln(args url.Values) (string, error) {
+	req, err := YwtEgn.HbtpGrpcRequest(bean.NewCliGroupPath("mgr", "cpu-report"), 1, "GetWarnLen", args)
 	if err != nil {
-		c.String(500, err.Error())
-		return
+		return "", err
 	}
 	defer req.Close()
 	err = req.Do(Mgr.Ctx, nil)
 	if err != nil {
-		c.String(500, "req.Do err:%v", err)
-		return
+		return "", err
 	}
 	if req.ResCode() != hbtp.ResStatusOk {
-		c.String(500, "res code(%d) err:%s", req.ResCode(), string(req.ResBodyBytes()))
+		return "", fmt.Errorf("res code(%d) err:%s", req.ResCode(), string(req.ResBodyBytes()))
+	}
+	return string(req.ResBodyBytes()), nil
+}
+func warnln(c *gin.Context) {
+	ns1, err := getWarnln(nil)
+	if err != nil {
+		c.String(500, err.Error())
+		return
+	}
+	pars := url.Values{}
+	pars.Set("day", "-1")
+	ns2, err := getWarnln(pars)
+	if err != nil {
+		c.String(500, err.Error())
+		return
+	}
+	pars = url.Values{}
+	pars.Set("day", "1")
+	ns3, err := getWarnln(pars)
+	if err != nil {
+		c.String(500, err.Error())
+		return
+	}
+	pars = url.Values{}
+	pars.Set("day", "2")
+	ns4, err := getWarnln(pars)
+	if err != nil {
+		c.String(500, err.Error())
 		return
 	}
 	c.JSON(200, hbtp.Map{
-		"count": string(req.ResBodyBytes()),
+		"count":         ns1,
+		"count_today":   ns2,
+		"count_lastday": ns3,
+		"count_3day":    ns4,
 	})
 }
 func warns(c *gin.Context) {
